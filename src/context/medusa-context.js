@@ -3,6 +3,7 @@ import React, { createContext } from "react"
 import { CartProvider } from "./cart-context"
 import { CustomerProvider } from "./customer-context"
 import { RegionProvider } from "./region-context"
+import { WishlistProvider } from "./wishlist-context"
 
 const defaultMedusaContext = {
   /**
@@ -19,7 +20,9 @@ export const MedusaProvider = ({ children, client }) => {
     <MedusaContext.Provider value={{ client }}>
       <CustomerProvider>
         <RegionProvider>
-          <CartProvider>{children}</CartProvider>
+        <WishlistProvider>
+            <CartProvider>{children}</CartProvider>
+          </WishlistProvider>
         </RegionProvider>
       </CustomerProvider>
     </MedusaContext.Provider>

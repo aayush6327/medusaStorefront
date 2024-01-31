@@ -7,6 +7,8 @@ import CartPopover from "./cart-popover"
 import HeaderLink from "./header-link"
 import MobileMenu from "./mobile-menu"
 import RegionPopover from "./region-popover"
+import WishlistPopover from "./wishlist-popover"
+
 
 const mockData = {
   customer: {
@@ -34,6 +36,16 @@ const mockData = {
         title: "Medusa Sweatshirt",
         amount: 28000,
         quantity: 2,
+        thumbnail:
+          "https://medusa-public-images.s3.eu-west-1.amazonaws.com/tshirt.png",
+      },
+    ],
+  },
+  wishlist: {
+    items: [
+      {
+        id: "1",
+        title: "Medusa Tote",
         thumbnail:
           "https://medusa-public-images.s3.eu-west-1.amazonaws.com/tshirt.png",
       },
@@ -130,6 +142,7 @@ const Header = () => {
               <RegionPopover regions={mockData.regions} />
               <AccountPopover customer={mockData.customer} />
             </div>
+            <WishlistPopover wishlist={mockData.wishlist} />
             <CartPopover cart={mockData.cart} />
           </div>
         </nav>

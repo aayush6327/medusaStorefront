@@ -86,9 +86,10 @@ export const CartProvider = props => {
       const cartRes = await client.carts
         .update(cartId, { region_id: region.id })
         .then(({ cart }) => cart)
-
+        
       if (cartRes) {
         setCart(cartRes)
+        console.log("cart" , cart , cartId);
       }
 
       setLoading(false)

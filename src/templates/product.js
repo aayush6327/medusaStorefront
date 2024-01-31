@@ -1,5 +1,5 @@
 import { graphql, navigate } from "gatsby"
-import React, { useEffect } from "react"
+import React, { useEffect, useState } from "react"
 import ProductExpandable from "../components/products/product-expandable"
 import ProductImages from "../components/products/product-images"
 import ProductListItem from "../components/products/product-list-item"
@@ -13,6 +13,8 @@ import { useRegion } from "../hooks/use-region"
 import { formatPrice } from "../utils/format-price"
 import { pickDetails } from "../utils/pick-details"
 import { toKebab } from "../utils/to-kebab"
+import WishlistIcon from "../icons/wishlist"
+import { useWishlist } from "../hooks/use-wishlist"
 
 const Product = ({ data, pageContext }) => {
   const { product, related } = data
@@ -22,6 +24,10 @@ const Product = ({ data, pageContext }) => {
     loading,
     actions: { addItem },
   } = useCart()
+  const {
+    wishlist,
+    actions: { addWishItem, removeWishItem },
+  } = useWishlist()
 
   const {
     variant,
@@ -43,9 +49,29 @@ const Product = ({ data, pageContext }) => {
     await addItem({ variant_id: variant.id, quantity })
     resetOptions()
   }
+//   const [onWishlist, setOnWishlist] = useState(() =>
+//   wishlist.items.some(i => i.product_id === product.id)
+// )
+const [onWishlist, setOnWishlist] = useState(() =>
+  wishlist && wishlist.items && wishlist.items.some(i => i.product_id === product.id)
+)
+console.log('wishlist:', wishlist);
+
+  const toggleWishlist = async () => {
+    if (!onWishlist) {
+      await addWishItem(product.id)
+      setOnWishlist(true)
+    } else {
+      const [item] = wishlist.items.filter(i => i.product_id === product.id)
+      await removeWishItem(item.id)
+      setOnWishlist(false)
+    }
+  }
+
+
 
   const { region } = useRegion()
-
+console.log("regionnnnn", region);
   useEffect(() => {
     if (region && region.id !== regionId) {
       navigate(`/${toKebab(region.name)}/${handle}`)
@@ -63,7 +89,12 @@ const Product = ({ data, pageContext }) => {
           <ProductImages images={product.images} />
         </div>
         <div className="mt-8 lg:mt-0 lg:w-2/5 lg:max-w-xl">
-          <h1 className="font-semibold text-3xl">{product.title}</h1>
+          <div className="flex justify-between items-center">
+            <h1 className="font-semibold text-3xl">{product.title}</h1>
+            <button onClick={toggleWishlist}>
+              <WishlistIcon fill={onWishlist} />
+            </button>
+          </div>
           <p className="text-lg mt-2 mb-4">
             {formatPrice(price?.amount, currencyCode, 1)}
           </p>
