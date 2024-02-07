@@ -1,17 +1,25 @@
-import React from "react"
+import React, { useState } from "react"
 import { useCart } from "../../hooks/use-cart"
 import { useRegion } from "../../hooks/use-region"
 import { classNames } from "../../utils/class-names"
 import { formatPrice } from "../../utils/format-price"
 import QuantitySelector from "../products/quantity-selector"
+import { useWishlist } from "../../hooks/use-wishlist"
+import WishlistIcon from "../../icons/wishlist"
 
 const CartItem = ({ item, currencyCode, showDescription = true }) => {
+  console.log("item in cart", item)
   const {
     actions: { removeItem, updateQuantity },
   } = useCart()
-
+  const {
+    wishlist,
+    actions: { addWishItem, removeWishItem },
+  } = useWishlist()
   const { region } = useRegion()
-
+  const [onWishlist, setOnWishlist] = useState(() =>
+  wishlist && wishlist.items && wishlist.items.some(i => i.item_id === item.id)
+  )
   return (
     <div className="flex mb-6 last:mb-0">
       <div className="bg-ui rounded-md overflow-hidden mr-4 max-w-1/4">
@@ -24,7 +32,12 @@ const CartItem = ({ item, currencyCode, showDescription = true }) => {
       <div className="flex text-sm flex-grow py-2">
         <div className="flex flex-col justify-between w-full flex-grow">
           <div className="flex flex-col">
-            <p className="font-semibold mb-2">{item.title}</p>
+          <div className="flex justify-between items-center">
+            <h1 className="font-semibold text-3xl">{item.title}</h1>
+            <button onClick={async ()=> await addWishItem(item.variant.product.id)}>
+              <WishlistIcon fill={onWishlist} />
+            </button>
+          </div>
             <p
               className={classNames(
                 showDescription && "lg:block mb-4",

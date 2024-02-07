@@ -22,7 +22,7 @@ p {
 
 @tailwind components;
 @tailwind utilities;
-@tailwind forms;
+/* @tailwind base; */
 
 @layer components {
   .btn-ui {
@@ -41,3 +41,99 @@ p {
     @apply min-h-screen max-w-screen-2xl mx-auto py-12 px-4 sm:py-8 sm:px-6 lg:px-12;
   }
 }
+/* 
+
+.container {
+  @apply flex;
+  width: 100%;
+  min-height: 100vh;
+}
+
+.image {
+  @apply w-60 h-screen;
+  margin: 0;
+}
+
+.placeholder {
+  @apply h-screen w-full relative bg-transparent;
+  position: relative;
+  background: var(--bg);
+}
+
+.placeholder > div {
+  @apply w-full h-full;
+}
+
+.info {
+  @apply flex flex-col justify-center;
+  padding: 1rem 3rem;
+}
+
+.return {
+  @apply flex items-center;
+}
+
+.return svg {
+  @apply mr-2;
+}
+
+.sizebtn {
+  @apply py-2 px-3 bg-gray-300 rounded mr-2 transition duration-200 hover:brightness-90;
+  border: none;
+  min-height: 38px;
+  min-width: 38px;
+}
+
+.sizebtn:hover {
+  @apply filter brightness-90;
+}
+
+.selected {
+  @apply bg-logo-color-900 text-white;
+}
+
+.ticker {
+  @apply w-9 h-9 text-center flex items-center justify-center;
+}
+
+.qty {
+  @apply flex items-center;
+}
+
+.selection {
+  @apply mt-8;
+  margin: 2rem 0;
+}
+
+.selection p {
+  @apply mb-4 text-lg font-semibold;
+}
+
+.qtybtn {
+  @apply h-10 w-10 border-none transition duration-200 rounded;
+}
+
+.qtybtn:hover,
+.qtybtn:focus {
+  @apply bg-blue-100;
+}
+
+.addbtn {
+  @apply text-xl h-12 w-12 px-4 inline-flex items-center bg-grey-600 text-white rounded-lg transition duration-200 ;
+}
+
+.addbtn svg {
+  @apply ml-2;
+}
+
+.tabs {
+  @apply mt-8 max-w-md;
+}
+
+.tabtitle {
+  @apply bg-transparent border-none p-2 text-lg font-semibold border-b-2 border-logo-color-400;
+}
+
+
+
+ */
